@@ -8,6 +8,8 @@ public class PlayerBehavior : MonoBehaviour
 
     private int desiredLane = 1; //0 = left : 2 = right
     public float laneDistance = 4; //the distance between two lanes
+    public float jumpForce;
+    public float gravityForce;
     
     void Start()
     {
@@ -17,6 +19,18 @@ public class PlayerBehavior : MonoBehaviour
     void Update()
     {
         direction.z = forwardSpeed;
+
+        if (_characterController.isGrounded)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Jump();
+            }
+        }
+        else
+        {
+            direction.y += gravityForce * Time.deltaTime;
+        }
         
         //Gather the inputs on which lane player should be 
         if (Input.GetKeyDown(KeyCode.D))
@@ -49,6 +63,11 @@ public class PlayerBehavior : MonoBehaviour
         }
 
         transform.position = Vector3.Lerp(transform.position, targetPosition, 80 * Time.fixedDeltaTime);
+    }
+
+    private void Jump()
+    {
+        direction.y = jumpForce;
     }
 
     private void FixedUpdate()
