@@ -2,25 +2,37 @@ using UnityEngine;
 
 public class PlayerBehavior : MonoBehaviour
 {
+    private static readonly int Jumped = Animator.StringToHash("jumped");
     private CharacterController _characterController;
+    private Animator _animator;
     private Vector3 direction;
     public float forwardSpeed;
 
-    private int desiredLane = 1; //0 = left : 2 = right
-    public float laneDistance = 4; //the distance between two lanes
+    private int desiredLane = 1; // 0 = left, 1 = middle, 2 = right
+    public float laneDistance = 4; // The distance between two lanes
     public float jumpForce;
+    private bool isGrounded;
     public float gravityForce;
     
     void Start()
     {
         _characterController = GetComponent<CharacterController>();
+        _animator = GetComponent<Animator>();
     }
 
     void Update()
     {
         direction.z = forwardSpeed;
 
-        if (_characterController.isGrounded)
+        if (transform.position.y < 0.1)
+        {
+            isGrounded = true;
+        }
+        else
+        {
+            isGrounded = false;
+        }
+        if (isGrounded)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -32,11 +44,11 @@ public class PlayerBehavior : MonoBehaviour
             direction.y += gravityForce * Time.deltaTime;
         }
         
-        //Gather the inputs on which lane player should be 
+        // Gather the inputs for lane switching
         if (Input.GetKeyDown(KeyCode.D))
         {
             desiredLane++;
-            if (desiredLane == 3)
+            if (desiredLane > 2) // Clamp to the rightmost lane
             {
                 desiredLane = 2;
             }
@@ -44,34 +56,24 @@ public class PlayerBehavior : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.A))
         {
             desiredLane--;
-            if (desiredLane == -1)
+            if (desiredLane < 0) // Clamp to the leftmost lane
             {
                 desiredLane = 0;
             }
         }
         
-        //Calculate where we should be in the future
-        Vector3 targetPosition = transform.position.z * transform.forward + transform.position.y * transform.up;
+        // Calculate the target position
+        Vector3 targetPosition = transform.position;
+        targetPosition.x = (desiredLane - 1) * laneDistance;
 
-        if (desiredLane == 0)
-        {
-            targetPosition += Vector3.left * laneDistance;
-        }
-        else if (desiredLane == 2)
-        {
-            targetPosition += Vector3.right * laneDistance;
-        }
-
-        transform.position = Vector3.Lerp(transform.position, targetPosition, 80 * Time.fixedDeltaTime);
+        // Smoothly move the player towards the target position
+        Vector3 movePosition = Vector3.Lerp(transform.position, targetPosition, 10 * Time.deltaTime);
+        _characterController.Move((movePosition - transform.position) + direction * Time.deltaTime);
     }
 
     private void Jump()
     {
         direction.y = jumpForce;
-    }
-
-    private void FixedUpdate()
-    {
-        _characterController.Move(direction * Time.fixedDeltaTime);
+        _animator.SetTrigger(Jumped);
     }
 }
