@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerBehavior : MonoBehaviour
 {
     private static readonly int Jumped = Animator.StringToHash("jumped");
+    private static readonly int isGrounded = Animator.StringToHash("isGrounded");
     private CharacterController _characterController;
     private Animator _animator;
     private Vector3 direction;
@@ -11,9 +12,8 @@ public class PlayerBehavior : MonoBehaviour
     private int desiredLane = 1; // 0 = left, 1 = middle, 2 = right
     public float laneDistance = 4; // The distance between two lanes
     public float jumpForce;
-    private bool isGrounded;
     public float gravityForce;
-    
+
     void Start()
     {
         _characterController = GetComponent<CharacterController>();
@@ -24,18 +24,11 @@ public class PlayerBehavior : MonoBehaviour
     {
         direction.z = forwardSpeed;
 
-        if (transform.position.y < 0.1)
-        {
-            isGrounded = true;
-        }
-        else
-        {
-            isGrounded = false;
-        }
-        if (isGrounded)
+        if (_characterController.isGrounded)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                _animator.SetBool(isGrounded, true);
                 Jump();
             }
         }
@@ -43,7 +36,7 @@ public class PlayerBehavior : MonoBehaviour
         {
             direction.y += gravityForce * Time.deltaTime;
         }
-        
+
         // Gather the inputs for lane switching
         if (Input.GetKeyDown(KeyCode.D))
         {
@@ -61,7 +54,7 @@ public class PlayerBehavior : MonoBehaviour
                 desiredLane = 0;
             }
         }
-        
+
         // Calculate the target position
         Vector3 targetPosition = transform.position;
         targetPosition.x = (desiredLane - 1) * laneDistance;
