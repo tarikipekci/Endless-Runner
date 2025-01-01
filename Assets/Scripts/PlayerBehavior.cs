@@ -27,7 +27,7 @@ public class PlayerBehavior : MonoBehaviour
 
         if (_characterController.isGrounded)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (SwipeManager.swipeUp)
             {
                 _animator.SetBool(isGrounded, true);
                 Jump();
@@ -39,7 +39,7 @@ public class PlayerBehavior : MonoBehaviour
         }
 
         // Gather the inputs for lane switching
-        if (Input.GetKeyDown(KeyCode.D))
+        if (SwipeManager.swipeRight)
         {
             desiredLane++;
             if (desiredLane > 2) // Clamp to the rightmost lane
@@ -47,7 +47,7 @@ public class PlayerBehavior : MonoBehaviour
                 desiredLane = 2;
             }
         }
-        else if (Input.GetKeyDown(KeyCode.A))
+        else if (SwipeManager.swipeLeft)
         {
             desiredLane--;
             if (desiredLane < 0) // Clamp to the leftmost lane
@@ -73,7 +73,7 @@ public class PlayerBehavior : MonoBehaviour
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (hit.transform.tag == "Obstacle")
+        if (hit.transform.CompareTag("Obstacle"))
         {
             PlayerManager.gameOver = true;
         }
