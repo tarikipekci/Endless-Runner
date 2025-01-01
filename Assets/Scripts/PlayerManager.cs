@@ -9,6 +9,7 @@ public class PlayerManager : MonoBehaviour
     {
         gameOver = false;
         Time.timeScale = 1;
+        Application.targetFrameRate = 90;
     }
 
     private void Update()
