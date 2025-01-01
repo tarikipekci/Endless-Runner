@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerBehavior : MonoBehaviour
@@ -68,5 +69,13 @@ public class PlayerBehavior : MonoBehaviour
     {
         direction.y = jumpForce;
         _animator.SetTrigger(Jumped);
+    }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.transform.tag == "Obstacle")
+        {
+            PlayerManager.gameOver = true;
+        }
     }
 }

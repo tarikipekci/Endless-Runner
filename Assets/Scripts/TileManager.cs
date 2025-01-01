@@ -27,7 +27,7 @@ public class TileManager : MonoBehaviour
 
     private void Update()
     {
-        if (playerTransform.position.z - (2 * tileLength) > zSpawn - (numberOfTiles * tileLength))
+        if (playerTransform.position.z - (2.5f * tileLength) > zSpawn - (numberOfTiles * tileLength))
         {
             SpawnTile(Random.Range(0, tiles.Length));
             DestroyTile();
@@ -39,7 +39,7 @@ public class TileManager : MonoBehaviour
         var newTile = Instantiate(tiles[tileIndex], transform.forward * zSpawn, Quaternion.identity);
         activeTiles.Add(newTile);
         var meshRenderer = tiles[tileIndex].MeshRenderer;
-        tileLength = meshRenderer.bounds.size.z - 1.5f;
+        tileLength = meshRenderer.bounds.size.z;
         zSpawn += tileLength;
     }
 
