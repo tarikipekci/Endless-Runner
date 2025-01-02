@@ -25,6 +25,8 @@ public class PlayerBehavior : MonoBehaviour
 
     void Update()
     {
+        if (!PlayerManager.isGameStarted) return;
+            
         //Increase speed
         if (forwardSpeed < maxSpeed)
         {
