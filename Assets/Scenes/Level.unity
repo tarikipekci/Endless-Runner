@@ -1403,7 +1403,7 @@ MonoBehaviour:
   - {fileID: 4997261087928292112, guid: f7c3fde271230ee49a5a7c1bdeac029b, type: 3}
   - {fileID: 5282300959219382529, guid: 41c745c64e7b4b6469e5846d38fa4ba0, type: 3}
   - {fileID: 893610654998005883, guid: aec23a8dba337034b962169b108bd1e4, type: 3}
-  - {fileID: 4997261087928292112, guid: 3e2cec09aea6b86468dcf8eeda23dbab, type: 3}
+  - {fileID: 4997261087928292112, guid: 0f1b2f7c2ebaaaf4fb0c263de8e7eb0f, type: 3}
   - {fileID: 5282300959219382529, guid: 6e4993cad9c8df148abd3bd9303a29f3, type: 3}
   playerTransform: {fileID: 4596641081225192}
 --- !u!4 &2114701693
@@ -1475,9 +1475,29 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2546633349876819185, guid: d3c550e6f35492046b5dbfbb3d10a4cc, type: 3}
+      propertyPath: maxSpeed
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 2546633349876819185, guid: d3c550e6f35492046b5dbfbb3d10a4cc, type: 3}
+      propertyPath: jumpForce
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2546633349876819185, guid: d3c550e6f35492046b5dbfbb3d10a4cc, type: 3}
+      propertyPath: forwardSpeed
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2546633349876819185, guid: d3c550e6f35492046b5dbfbb3d10a4cc, type: 3}
+      propertyPath: gravityForce
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2546633349876819185, guid: d3c550e6f35492046b5dbfbb3d10a4cc, type: 3}
       propertyPath: laneDistance
       value: 2.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2546633349876819185, guid: d3c550e6f35492046b5dbfbb3d10a4cc, type: 3}
+      propertyPath: jumpAnimation
+      value: 
+      objectReference: {fileID: 1827226128182048838, guid: 9d612badf1bc90744a9b66482f7f4dbf, type: 3}
     - target: {fileID: 7741808289075360666, guid: d3c550e6f35492046b5dbfbb3d10a4cc, type: 3}
       propertyPath: m_Name
       value: Player

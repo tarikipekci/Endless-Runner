@@ -4,10 +4,12 @@ public class PlayerBehavior : MonoBehaviour
 {
     private static readonly int Jumped = Animator.StringToHash("jumped");
     private static readonly int isGrounded = Animator.StringToHash("isGrounded");
+    private static readonly int SpeedMultiplier = Animator.StringToHash("speedMultiplier");
     private CharacterController _characterController;
     private Animator _animator;
     private Vector3 direction;
     public float forwardSpeed;
+    public float maxSpeed;
 
     private int desiredLane = 1; // 0 = left, 1 = middle, 2 = right
     public float laneDistance = 4; // The distance between two lanes
@@ -18,10 +20,26 @@ public class PlayerBehavior : MonoBehaviour
     {
         _characterController = GetComponent<CharacterController>();
         _animator = GetComponent<Animator>();
+        _animator.SetFloat(SpeedMultiplier, 1.0f);
     }
 
     void Update()
     {
+        //Increase speed
+        if (forwardSpeed < maxSpeed)
+        {
+            forwardSpeed += 0.05f * Time.deltaTime;
+            if (forwardSpeed >= 12)
+            {
+                _animator.SetFloat(SpeedMultiplier, 1.2f);
+                gravityForce = -12;
+            }
+        }
+        else
+        {
+            _animator.SetFloat(SpeedMultiplier, 1.3f);
+        }
+
         direction.z = forwardSpeed;
 
         if (_characterController.isGrounded)
