@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
@@ -15,7 +16,7 @@ public class PlayerManager : MonoBehaviour
     {
         gameOver = false;
         Time.timeScale = 1;
-        Application.targetFrameRate = 90;
+        Application.targetFrameRate = 120;
         numberOfCoins = 0;
         isGameStarted = false;
     }
@@ -35,5 +36,18 @@ public class PlayerManager : MonoBehaviour
         }
         
         numberOfCoinsText.text = "Coins: " + numberOfCoins;
+    }
+
+    private void SaveCoins()
+    {
+        var currentCoinAmount = PlayerPreferences.GetNumberOfCoins();
+        var newValue = currentCoinAmount + numberOfCoins;
+        PlayerPreferences.SetNumberOfCoins(newValue);
+    }
+
+    public void GoBackToMainMenu()
+    {
+        SaveCoins();
+        SceneManager.LoadScene("Menu");
     }
 }
