@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterIcon: {fileID: 21300000, guid: f7b776acf728fd14bbdec4869bc95e3e, type: 3}
   characterPrice: 100
+  guid: b7940211-b2c2-4851-997b-af7850903900
+  _isPurchased: 0

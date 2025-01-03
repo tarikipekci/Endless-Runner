@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -10,12 +11,27 @@ public class Menu : MonoBehaviour
     public Text numberOfCoins;
     public GameObject shop;
     private bool isShopActive;
-    
+
     public void PurchaseCharacter(CharacterInfo character)
     {
-        var newValue = PlayerPreferences.GetNumberOfCoins() - character.characterPrice;
-        PlayerPreferences.SetNumberOfCoins(newValue);
-        LoadCoins();
+        if (!character.purchased)
+        {
+            var currentCoin = PlayerPreferences.GetNumberOfCoins();
+            if (currentCoin >= character.characterPrice)
+            {
+                var newValue = currentCoin - character.characterPrice;
+                PlayerPreferences.SetNumberOfCoins(newValue);
+                LoadCoins();
+                character.purchased = true;
+            }
+        }
+        else
+        {
+            var thisCharacterIndex = Array.IndexOf(characters, character);
+            texts[PlayerPreferences.GetSelectedCharacter()].text = "Select";
+            PlayerPreferences.SetSelectedCharacter(thisCharacterIndex);
+            texts[PlayerPreferences.GetSelectedCharacter()].text = "Selected";
+        }
     }
 
     private void SetShopProductInfos()
@@ -59,6 +75,8 @@ public class Menu : MonoBehaviour
             shop.SetActive(true);
             isShopActive = true;
             LoadCoins();
+            var currentCharacter = PlayerPreferences.GetSelectedCharacter();
+            texts[currentCharacter].text = "Selected";
         }
     }
 }

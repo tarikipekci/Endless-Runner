@@ -6,6 +6,7 @@ public class PlayerPreferences : MonoBehaviour
     public static float musicSoundLevel;
     public static float ambientSoundLevel;
     public static int numberOfCoins;
+    public static int selectedCharacter;
     
     public static void SetGeneralSound(float general)
     {
@@ -45,5 +46,15 @@ public class PlayerPreferences : MonoBehaviour
     public static int GetNumberOfCoins()
     {
         return PlayerPrefs.GetInt("numberOfCoins");
+    }
+    
+    public static void SetSelectedCharacter(int character)
+    {
+        PlayerPrefs.SetInt("selectedCharacter", character);
+    }
+
+    public static int GetSelectedCharacter()
+    {
+        return PlayerPrefs.GetInt("selectedCharacter");
     }
 }
