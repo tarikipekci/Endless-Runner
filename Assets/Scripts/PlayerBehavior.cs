@@ -5,6 +5,7 @@ public class PlayerBehavior : MonoBehaviour
     private static readonly int Jumped = Animator.StringToHash("jumped");
     private static readonly int isGrounded = Animator.StringToHash("isGrounded");
     private static readonly int SpeedMultiplier = Animator.StringToHash("speedMultiplier");
+    private static readonly int Slide = Animator.StringToHash("slide");
     private CharacterController _characterController;
     private Animator _animator;
     private Vector3 direction;
@@ -51,6 +52,10 @@ public class PlayerBehavior : MonoBehaviour
                 _animator.SetBool(isGrounded, true);
                 Jump();
             }
+            if (SwipeManager.swipeDown)
+            {
+                PerformSlide();
+            }
         }
         else
         {
@@ -88,6 +93,11 @@ public class PlayerBehavior : MonoBehaviour
     {
         direction.y = jumpForce;
         _animator.SetTrigger(Jumped);
+    }
+
+    private void PerformSlide()
+    {
+        _animator.SetTrigger(Slide);
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)

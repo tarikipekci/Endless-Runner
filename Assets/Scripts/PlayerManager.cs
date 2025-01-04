@@ -26,7 +26,6 @@ public class PlayerManager : MonoBehaviour
         Application.targetFrameRate = 120;
         numberOfCoins = 0;
         isGameStarted = false;
-        Debug.Log(selectedCharacterMesh);
     }
 
     private void Update()
