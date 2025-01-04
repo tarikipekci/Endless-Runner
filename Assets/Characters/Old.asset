@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Old
   m_EditorClassIdentifier: 
   characterIcon: {fileID: 21300000, guid: 4598ed14c72344144bdddeaa7c3d3fc3, type: 3}
+  characterMesh: {fileID: -665913934178484564, guid: fac98f14f50443d45b9992c1215f063a, type: 3}
   characterPrice: 150
   guid: 4ede65ac-b655-4429-b3d2-6cae41754134
   _isPurchased: 0

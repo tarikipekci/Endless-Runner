@@ -1344,6 +1344,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameOverPanel: {fileID: 1726417059}
+  currentCharacterMesh: {fileID: 7125616295217804109}
   numberOfCoinsText: {fileID: 528028902}
   startingText: {fileID: 76486386}
 --- !u!1 &1503301590
@@ -1764,6 +1765,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d3c550e6f35492046b5dbfbb3d10a4cc, type: 3}
+--- !u!137 &7125616295217804109 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6398421879290112902, guid: d3c550e6f35492046b5dbfbb3d10a4cc, type: 3}
+  m_PrefabInstance: {fileID: 7125616295217804108}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

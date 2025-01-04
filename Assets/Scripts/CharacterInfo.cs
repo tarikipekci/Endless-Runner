@@ -5,6 +5,7 @@ using UnityEngine;
 public class CharacterInfo : ScriptableObject
 {
     public Sprite characterIcon;
+    public Mesh characterMesh;
     public int characterPrice;
     [SerializeField] private string guid;
     [SerializeField] private bool _isPurchased;

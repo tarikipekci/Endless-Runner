@@ -6,7 +6,7 @@ public class Coin : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            PlayerManager.numberOfCoins += 500;
+            PlayerManager.numberOfCoins++;
             Destroy(gameObject);
         }
     }

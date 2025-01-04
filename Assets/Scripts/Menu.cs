@@ -56,6 +56,9 @@ public class Menu : MonoBehaviour
     public void StartGame()
     {
         SceneManager.LoadScene("Level");
+        var selectedCharacter = PlayerPreferences.GetSelectedCharacter();
+        var selectedCharacterMesh = characters[selectedCharacter].characterMesh;
+        PlayerManager.selectedCharacterMesh = selectedCharacterMesh;
     }
 
     public void QuitGame()
@@ -77,6 +80,14 @@ public class Menu : MonoBehaviour
             LoadCoins();
             var currentCharacter = PlayerPreferences.GetSelectedCharacter();
             texts[currentCharacter].text = "Selected";
+            
+            for (int i = 0; i < characters.Length; i++)
+            {
+                if (characters[i].purchased && i != currentCharacter)
+                {
+                    texts[i].text = "Select";
+                }
+            }
         }
     }
 }

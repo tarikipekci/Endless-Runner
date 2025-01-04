@@ -7,10 +7,17 @@ public class PlayerManager : MonoBehaviour
     public static bool gameOver;
     public GameObject gameOverPanel;
     public static bool isGameStarted;
+    public static Mesh selectedCharacterMesh;
+    public SkinnedMeshRenderer currentCharacterMesh;
 
     public static int numberOfCoins;
     public Text numberOfCoinsText;
     public GameObject startingText;
+
+    private void Awake()
+    {
+        currentCharacterMesh.sharedMesh = selectedCharacterMesh;
+    }
 
     private void Start()
     {
@@ -19,6 +26,7 @@ public class PlayerManager : MonoBehaviour
         Application.targetFrameRate = 120;
         numberOfCoins = 0;
         isGameStarted = false;
+        Debug.Log(selectedCharacterMesh);
     }
 
     private void Update()
@@ -38,7 +46,7 @@ public class PlayerManager : MonoBehaviour
         numberOfCoinsText.text = "Coins: " + numberOfCoins;
     }
 
-    private void SaveCoins()
+    public static void SaveCoins()
     {
         var currentCoinAmount = PlayerPreferences.GetNumberOfCoins();
         var newValue = currentCoinAmount + numberOfCoins;
