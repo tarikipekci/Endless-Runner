@@ -16,18 +16,20 @@ public class PlayerBehavior : MonoBehaviour
     public float laneDistance = 4; // The distance between two lanes
     public float jumpForce;
     public float gravityForce;
+    private bool canJump;
 
     void Start()
     {
         _characterController = GetComponent<CharacterController>();
         _animator = GetComponent<Animator>();
         _animator.SetFloat(SpeedMultiplier, 1.0f);
+        canJump = true;
     }
 
     void Update()
     {
         if (!PlayerManager.isGameStarted) return;
-            
+
         //Increase speed
         if (forwardSpeed < maxSpeed)
         {
@@ -52,6 +54,7 @@ public class PlayerBehavior : MonoBehaviour
                 _animator.SetBool(isGrounded, true);
                 Jump();
             }
+
             if (SwipeManager.swipeDown)
             {
                 PerformSlide();
@@ -91,13 +94,26 @@ public class PlayerBehavior : MonoBehaviour
 
     private void Jump()
     {
-        direction.y = jumpForce;
-        _animator.SetTrigger(Jumped);
+        if (canJump)
+        {
+            direction.y = jumpForce;
+            _animator.SetTrigger(Jumped);
+        }
     }
 
     private void PerformSlide()
     {
         _animator.SetTrigger(Slide);
+    }
+
+    private void FalseCanJump()
+    {
+        canJump = false;
+    }
+
+    private void TrueCanJump()
+    {
+        canJump = true;
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
