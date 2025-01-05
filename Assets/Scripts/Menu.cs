@@ -14,6 +14,7 @@ public class Menu : MonoBehaviour
 
     public void PurchaseCharacter(CharacterInfo character)
     {
+        var thisCharacterIndex = Array.IndexOf(characters, character);
         if (!character.purchased)
         {
             var currentCoin = PlayerPreferences.GetNumberOfCoins();
@@ -23,11 +24,11 @@ public class Menu : MonoBehaviour
                 PlayerPreferences.SetNumberOfCoins(newValue);
                 LoadCoins();
                 character.purchased = true;
+                texts[thisCharacterIndex].text = "Select";
             }
         }
         else
         {
-            var thisCharacterIndex = Array.IndexOf(characters, character);
             texts[PlayerPreferences.GetSelectedCharacter()].text = "Select";
             PlayerPreferences.SetSelectedCharacter(thisCharacterIndex);
             texts[PlayerPreferences.GetSelectedCharacter()].text = "Selected";
@@ -46,6 +47,7 @@ public class Menu : MonoBehaviour
     private void Start()
     {
         SetShopProductInfos();
+        characters[0].purchased = true;
     }
     
     private void LoadCoins()
