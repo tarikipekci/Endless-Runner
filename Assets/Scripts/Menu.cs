@@ -10,7 +10,9 @@ public class Menu : MonoBehaviour
     public CharacterInfo[] characters;
     public Text numberOfCoins;
     public GameObject shop;
+    public GameObject options;
     private bool isShopActive;
+    private bool isOptionsActive;
 
     public void PurchaseCharacter(CharacterInfo character)
     {
@@ -90,6 +92,20 @@ public class Menu : MonoBehaviour
                     texts[i].text = "Select";
                 }
             }
+        }
+    }
+
+    public void OpenCloseOptions()
+    {
+        if (isOptionsActive)
+        {
+            options.SetActive(false);
+            isOptionsActive = false;
+        }
+        else
+        {
+            options.SetActive(true);
+            isOptionsActive = true;
         }
     }
 }
