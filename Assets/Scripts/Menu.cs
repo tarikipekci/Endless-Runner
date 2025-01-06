@@ -9,6 +9,7 @@ public class Menu : MonoBehaviour
     public Image[] images;
     public CharacterInfo[] characters;
     public Text numberOfCoins;
+    public Text bestTimeText;
     public GameObject shop;
     public GameObject options;
     private bool isShopActive;
@@ -50,6 +51,13 @@ public class Menu : MonoBehaviour
     {
         SetShopProductInfos();
         characters[0].purchased = true;
+        var bestTime = PlayerPreferences.GetBestTime();
+        
+        int hours = Mathf.FloorToInt(bestTime / 3600);
+        int minutes = Mathf.FloorToInt((bestTime % 3600) / 60);
+        int seconds = Mathf.FloorToInt(bestTime % 60);
+
+        bestTimeText.text = "Best Time: " + $"{hours:00}:{minutes:00}:{seconds:00}";
     }
     
     private void LoadCoins()

@@ -7,6 +7,7 @@ public class PlayerPreferences : MonoBehaviour
     public static float ambientSoundLevel;
     public static int numberOfCoins;
     public static int selectedCharacter;
+    public static float bestTime;
     
     public static void SetGeneralSound(float general)
     {
@@ -57,4 +58,15 @@ public class PlayerPreferences : MonoBehaviour
     {
         return PlayerPrefs.GetInt("selectedCharacter");
     }
+    
+    public static void SetBestTime(float newBestTime)
+    {
+        PlayerPrefs.SetFloat("bestTime", newBestTime);
+    }
+
+    public static float GetBestTime()
+    {
+        return PlayerPrefs.GetFloat("bestTime");
+    }
+
 }

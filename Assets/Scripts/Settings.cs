@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Settings : MonoBehaviour
@@ -13,6 +12,21 @@ public class Settings : MonoBehaviour
 
     private void Awake()
     {
+        if (!PlayerPrefs.HasKey("generalSoundLevel"))
+        {
+            PlayerPreferences.SetGeneralSound(0.5f);
+        }
+
+        if (!PlayerPrefs.HasKey("ambientSoundLevel"))
+        {
+            PlayerPreferences.SetAmbientSound(0.5f);
+        }
+        
+        if (!PlayerPrefs.HasKey("musicSoundLevel"))
+        {
+            PlayerPreferences.SetMusicSound(0.5f);
+        }
+        
         Application.targetFrameRate = 144;
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         generalSoundSlider.value = PlayerPreferences.GetGeneralSound();
@@ -21,6 +35,7 @@ public class Settings : MonoBehaviour
         GeneralSoundSlider(PlayerPreferences.GetGeneralSound());
         AmbientSoundSlider(PlayerPreferences.GetAmbientSound());
         MusicSoundSlider(PlayerPreferences.GetMusicSound());
+        gameObject.SetActive(false);
     }
     
     public void GeneralSoundSlider(float volume)
@@ -45,30 +60,5 @@ public class Settings : MonoBehaviour
         musicSoundLevel.text = Mathf.FloorToInt(volume * hundred).ToString();
         audioManager.SetMusicSoundLevel(volume);
         PlayerPreferences.SetMusicSound(volume);
-    }
-
-    public void Open_Close_Settings()
-    {
-        if (isSettingsOpen == false)
-        {
-            settings.SetActive(true);
-            isSettingsOpen = true;
-        }
-        else
-        {
-            settings.SetActive(false);
-            isSettingsOpen = false;
-        }
-    }
-
-    public void CloseSettings()
-    {
-        settings.SetActive(false);
-        isSettingsOpen = false;
-    }
-
-    public void LoadMenu()
-    {
-        SceneManager.LoadScene("Menu");
     }
 }
